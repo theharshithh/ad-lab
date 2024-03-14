@@ -34,7 +34,7 @@ if (st.button('clear')):
 
 password = st.text_input('Enter the key (needed for py)', type='password', label_visibility="hidden", key='second')
 
-if password == 'pypip':
+if password == 'hkm':
     
     exp_type = st.radio("Select experiment type:", options=['Software', 'Hardware'])
     if exp_type == 'Software':
