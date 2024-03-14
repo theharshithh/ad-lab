@@ -1,0 +1,41 @@
+module tb_decoder24;
+
+// Inputs
+reg [1:0] i;
+
+// Output
+wire [3:0] y;
+
+// DUT instantiation
+decoder24 dut (.i(i), .y(y));
+
+// Test case generation
+initial begin
+    $dumpfile("decoder24_simulation.vcd"); // Replace with desired filename
+    $dumpvars(0, dut); // Dump all signals of the DUT
+
+    // Test case 1
+    i = 2'b00;
+    #10;
+
+    // Test case 2
+    i = 2'b01;
+    #10;
+
+    // Test case 3
+    i = 2'b10;
+    #10;
+
+    // Test case 4
+    i = 2'b11;
+    #10;
+
+    $finish;
+end
+
+// Monitor (optional, for debugging)
+initial begin
+    $monitor("Time: %d, i: %b, y: %b", $time, i, y);
+end
+
+endmodule

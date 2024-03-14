@@ -1,0 +1,15 @@
+module dff (
+    input clk,
+    input reset,
+    input d,
+    output reg q
+);
+
+    // Synchronous reset (active low)
+    always @(posedge clk)
+        if (!reset)
+            q <= 1'b0; // Reset q to logic 0
+        else
+            q <= d; // Assign input d to q
+
+endmodule

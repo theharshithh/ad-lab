@@ -1,0 +1,21 @@
+module jkff (
+    input clk,
+    input reset,
+    input [1:0] jk,
+    output reg Q
+);
+
+    // Synchronous reset (active low)
+  always @(negedge clk)
+        if (reset) // Active low reset
+            Q <= 1'b0; // Reset Q to logic 1
+  else if (!reset) // Active low reset
+            Q <= 1'b1;
+        else case (jk)
+                2'b00: Q <= Q;    // Hold
+                2'b01: Q <= 1'b0;  // Set
+                2'b10: Q <= 1'b1;  // Reset
+                2'b11: Q <= ~Q;    // Toggle
+                default: Q <= 1'b0; // Unassigned JK combination (optional)
+            endcase
+endmodule

@@ -1,0 +1,38 @@
+module tb_dff;
+
+    // Inputs
+    reg clk, reset, d;
+
+    // Output
+    wire q;
+
+    // DUT instantiation
+    dff dut (.clk(clk), .reset(reset), .d(d), .q(q));
+
+    // Clock generation
+    always #5 clk = ~clk; // Toggle clock every 5 time units
+
+    // Test case generation
+    initial begin
+        $dumpfile("dff_simulation.vcd"); // Replace with desired filename
+        $dumpvars(0, dut); // Dump all signals of the DUT
+        clk = 0;
+        reset = 0;
+        d = 0;
+
+        #10 reset = 1;
+        #10 d = 1;
+        #10 d = 0;
+        #10 reset = 0;
+        #10 d = 1;
+        #10 d = 0;
+
+        $finish;
+    end
+
+    // Monitor (optional, for debugging)
+    initial begin
+        $monitor("Time: %d, clk: %b, reset: %b, d: %b, q: %b", $time, clk, reset, d, q);
+    end
+
+endmodule

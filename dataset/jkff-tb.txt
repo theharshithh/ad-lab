@@ -1,0 +1,38 @@
+module tb_jkff;
+
+ // Inputs
+ reg clk, reset;
+ reg [1:0]jk;
+
+ // Output
+ wire Q;
+
+ // DUT instantiation
+ jkff dut (.clk(clk), .reset(reset), .jk(jk), .Q(Q));
+
+ // Clock generation
+ always #5 clk = ~clk; // Toggle clock every 5 time units
+
+ // Test case generation
+ initial begin
+  $dumpfile("jkff_simulation.vcd"); // Replace with desired filename
+  $dumpvars(0, dut);         // Dump all signals of the DUT
+
+  clk = 0;
+  reset = 0;
+  jk = 2'b00;
+  #10 reset =1;
+  #10 reset =0;
+  #10 jk = 2'b01;
+  #10 jk = 2'b10;
+  #10 jk = 2'b11; 
+
+  $finish;
+ end
+
+ // Monitor (optional, for debugging)
+ initial begin
+  $monitor("Time: %d, clk: %b, reset: %b, jk: %b, Q: %b", $time, clk, reset, jk, Q);
+ end
+
+endmodule

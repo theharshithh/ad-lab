@@ -1,0 +1,54 @@
+module tb_enc83;
+
+// Inputs
+reg En;
+reg [7:0] d;
+
+// Output
+wire [2:0] b;
+
+// DUT instantiation
+enc83 dut (.En(En), .d(d), .b(b));
+
+// Test case generation
+initial begin
+    $dumpfile("enc83_simulation.vcd"); // Replace with desired filename
+    $dumpvars(0, dut); // Dump all signals of the DUT
+
+    // Test case 1 (En = 1)
+    En = 1'b1;
+    d = 8'b00000000;
+    #10;
+
+    // Test case 2 (En = 0, d = 8'b00000001)
+    En = 1'b0;
+    d = 8'b00000001;
+    #10;
+
+    // Test case 3 (En = 0, d = 8'b00000010)
+    d = 8'b00000010;
+    #10;
+
+    // Test case 4 (En = 0, d = 8'b00000100)
+    d = 8'b00000100;
+    #10;
+  d = 8'b00001000;
+    #10;
+  d = 8'b00010000;
+    #10;
+  d = 8'b00100000;
+    #10;
+  d = 8'b01000000;
+    #10;
+  d = 8'b10000000;
+    #10;
+
+    $finish;
+end
+
+// Monitor (optional, for debugging)
+initial begin
+    $monitor("Time: %d, En: %b, d: %b, b: %b", $time, En, d, b);
+end
+
+endmodule
