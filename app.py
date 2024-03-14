@@ -1,5 +1,9 @@
 import streamlit as st
 import os
+from dotenv import load_dotenv
+load_dotenv()  
+secret_key = os.getenv('secret_key')
+
 
 from code_storage import jkff, jkff_tb, dff, dff_tb, encoder83, encoder83_tb, mux8x1, mux8x1_tb, decoder24, decoder24_tb
 from code_storage import priority_enc, priority_enc_tb
@@ -28,13 +32,12 @@ options = {
 }
 
 
-
 if (st.button('clear')):
     st.session_state.second = ''  
 
 password = st.text_input('Enter the key (needed for py)', type='password', label_visibility="hidden", key='second')
 
-if password == 'hkm':
+if password == secret_key:
     
     exp_type = st.radio("Select experiment type:", options=['Software', 'Hardware'])
     if exp_type == 'Software':
